@@ -1,42 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Coding 101 Quiz</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="Assets/style.css" />
-  </head>
-  <body>
-    <header>
-      <div class="large-font"><h1>Coding 101 Quiz</h1></div>
-      <button class="start-button">Start</button>
-    </header>
 
-    <main>
-      <section>
-        <div class="card quiz-question">
-        </div>
-      </section>  
-    
-      <section>
-        <div class="card results">
-          <div class="win-loss-container">
-          <div>
-          <h2>Wins: <span class="win">0 </span></h2>
-          <h2>Losses: <span class="lose">0 <span></h2>  
-        </div>
-          <button class="reset-button">Reset Score</button>
+<head>
+  <title>Coding 101 Quiz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="Assets/style.css" />
+</head>
+
+<body>
+
+  <header>
+    <div class="top-line">
+      <p><span class="view-highscores">View Highscores</span></p>
+      <p>Time:<span class="timer-count"> 90</span></p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="coding-quiz">
+        <h1>Coding 101</h1>
       </div>
-          <div class="card timer">
-            <div class="timer-text">
-            <div clas="large-font timer-count">10</div>  
-            <h3>seconds remaining</h3>  
-          </div>
-          
-          </div>
-        </div>
-      </section>
-    </main>
-  <script src="assets/js/script.js"></script>
-  </body>
+      <p>Do you know some of the basics of coding?</p>
+      <p>Take this short multiple choice quiz to find out!</p>
+      <p>For every wrong answer you will lose 10 seconds.</p>
+      <p>Try to answer all the questions before time runs out!</p>
+      <div class="center-button">
+        <button class="start-button">Start</button>
+      </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="Assets/script.js"></script>
+</body>
+
 </html>
