@@ -1,10 +1,11 @@
+// Multiple choice questions object. Answers have a letter value.
 var questions = [
     { 
         question: "What is the acronym for Hypertext Markup Language?",
         a: "HTML",
         b: "HML",
         c: "HTMUL",    
-        correct: "HTML",
+        correct: "a",
     },
 
     {
@@ -12,7 +13,7 @@ var questions = [
         a: "interactivity",
         b: "style",
         c: "structure",
-        correct: "style",
+        correct: "b",
     },
 
     {
@@ -20,13 +21,14 @@ var questions = [
         a: "2015",
         b: "2005",
         c: "1995",
-        correct: "1995"
+        correct: "c"
     }
 ];
 
+// Variables to set up the quiz.
 var quiz = document.getElementById("quiz");
 var answerElements = document.querySelectorAll(".answer");
-var questionElement = document.getElementById("question"); // Question is loading
+var questionElement = document.getElementById("question");
 var a_text = document.getElementById("a_text");
 var b_text = document.getElementById("b_text");
 var c_text = document.getElementById("c_text");
@@ -35,12 +37,21 @@ var submitButton = document.getElementById("submit");
 var currentQuiz = 0;
 var score = 0;
 
+// Timer variables.
+// var startButton = document.querySelector(".start-button");
+var secondsLabel = document.getElementById("timer-count");
+
+console.log(secondsLabel);
+
+// var totalSeconds = 3;
+// var timerInterval;
+
+// Function that clears away answers so user can play again.
 function deselectAnswers() {
     answerElements.forEach((answer) => (answer.checked = false));
 };
 
-// console.log(deselectAnswers());
-
+// Function that picks the answer.
 function getSelected() {
     var answer;
     answerElements.forEach((answerElement) => {
@@ -49,35 +60,93 @@ function getSelected() {
     return answer;
 };
 
-// console.log(getSelected());
-
+// Function that loads the quiz.
 function loadQuiz() {
     deselectAnswers();
     var currentQuizData = questions[currentQuiz];
-    questionElement.innerText = currentQuizData.questions;
-    a_text.innerText = currentQuizData.a;
-    b_text.innerText = currentQuizData.b;
-    c_text.innerText = currentQuizData.c;
+    questionElement.innerHTML = currentQuizData.question;
+    a_text.textContent = currentQuizData.a;
+    b_text.textContent = currentQuizData.b;
+    c_text.textContent = currentQuizData.c;
 };
   
 loadQuiz();
 
+// Event listener that compares selection to answer.
 submitButton.addEventListener("click", function() {
+    startCountDown(60);
     var answer = getSelected();
     if (answer) {
       if (answer === questions[currentQuiz].correct) score++;
       currentQuiz++;
       if (currentQuiz < questions.length) loadQuiz();
-      else {
-        quiz.innerHTML = `
-              <h2>You answered ${score}/${questions.length} questions correctly</h2>
-              <button onclick="history.go(0)">Play Again</button>
-          `
-      }
+    //   else {
+    //     quiz.innerHTML = `
+    //           <h2>You answered ${score}/${questions.length} questions correctly</h2>
+    //           <button onclick="history.go(0)">Play Again</button>
+    //       `
+    //   }
     }
   });
 
-  // startButton.addEventListener("click", function() {
+function startCountDown(seconds) {
+    var counter = seconds;
+
+    var interval = setInterval(() => {
+        secondsLabel.textContent = counter--;
+
+        if (counter < 0) {
+            clearInterval(interval);
+            secondsLabel.textContent = "Expired!";
+        }
+    }, 1000);
+} 
+    
+
+
+
+
+  // function setTime() {
+//     timerInterval = setInterval(function() {
+//         --totalSeconds;
+//         secondsLabel.textContent = pad(totalSeconds%60);
+//     }, 1000);
+    
+//     if (totalSeconds < 0) {
+
+        
+
+//         clearInterval(timerInterval);
+//         secondsLabel.textContent = "EXPIRED";
+//     }
+
+//     console.log(totalSeconds);
+// }
+
+// function pad(val) {
+//     var valString = val + "";
+//     if (valString.length < 2) {
+//         return 0 + valString;
+//     } else {
+//         return valString;
+//     }
+// }
+
+// function stopTimer() {
+//     clearInterval(timerInterval);
+//     alert("You have run out of time!")
+// } 
+
+// function buttonDisappear() {
+//     startButton.setAttribute("style", "display:none");
+// }
+
+
+
+
+
+
+// startButton.addEventListener("click", function() {
 //     nextQuestion();
 //     // startQuiz();
 //     setTime();
@@ -97,13 +166,6 @@ submitButton.addEventListener("click", function() {
 // function checkForAnswer() {
     
 // }
-
-
-// Timer code block.
-// var startButton = document.querySelector(".start-button");
-// var secondsLabel = document.querySelector(".timer-count");
-// var totalSeconds = 3;
-// var timerInterval;
 
 // var question1 = Object.keys(allQuestions); // "What is the acronym for Hypertext Markup Language?"
 // var arrayOfAnswerValues = Object.values(allQuestions); // [Array(3)]
@@ -155,26 +217,11 @@ submitButton.addEventListener("click", function() {
     // changeToQuestions.textContent = // Object with 3 questions and multiple choice answers.
 
 
-// function setTime() {
-//     timerInterval = setInterval(function() {
-//         --totalSeconds;
-//         secondsLabel.innerHTML = pad(totalSeconds%60);
-//     }, 1000);
-// }
 
-// function stopTimer() {
-//     clearInterval(timerInterval);
-//     alert("You have run out of time!")
-// } 
 
-// function pad(val) {
-//     var valString = val + "";
-//     if (valString.length < 2) {
-//         return 0 + valString;
-//     } else {
-//         return valString;
-//     }
-// }
+
+
+
 
 // function loadQuestion(current) {
 //     var question = Object.keys(allQuestions)[current];
@@ -183,9 +230,7 @@ submitButton.addEventListener("click", function() {
 //     questionArea.textContent = question;
 // }
 
-// function buttonDisappear() {
-//     startButton.setAttribute("style", "display:none");
-// }
+
 
 // startButton.addEventListener("click", function() {
 //     nextQuestion();
