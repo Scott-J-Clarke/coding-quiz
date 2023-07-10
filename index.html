@@ -12,20 +12,23 @@
 
   <header>
     <div class="top-line">
-      <p><span class="view-highscores">View Highscores</span></p>
-      <p>Time:<span class="timer-count"> 90</span></p>
+      <p><span class="view-highscores">View High Scores</span></p>
+      <p>Time:<span class="timer-count"> 60</span></p>
     </div>
   </header>
 
   <main>
     <section>
-      <div class="coding-quiz">
-        <h1>Coding 101</h1>
-      </div>
-      <p>Do you know some of the basics of coding?</p>
-      <p>Take this short multiple choice quiz to find out!</p>
-      <p>For every wrong answer you will lose 10 seconds.</p>
-      <p>Try to answer all the questions before time runs out!</p>
+      <!-- <div> -->
+      <ul id="questions">
+        <li>
+          <h1 id="quiz-title">Coding 101</h1>
+        </li>
+        <li>What do you know about coding? Take this short quiz to find out!</li>
+        <li>For each wrong answer you will lose 10 of your 60 seconds.</li>
+        <li>Answer all 3 multiple choice questions before time runs out!</li>
+      </ul>
+      <!-- </div> -->
       <div class="center-button">
         <button class="start-button">Start</button>
       </div>
@@ -33,7 +36,27 @@
     </section>
   </main>
 
+  <!-- <button <span 
+  onclick="this.parentNode.style.display='none';"
+  class="start-button">Start
+  </span>
+  </button> -->
+
   <script src="Assets/script.js"></script>
 </body>
 
 </html>
+
+<!-- <p>What do you know about coding? Take this short quiz to find out!<p>
+  <p>For each wrong answer you will lose 10 of your 60 seconds.</p>
+  <p>Answer all 3 multiple choice questions before time runs out!</p> -->
+
+<!-- <div id="coding-quiz">
+    <h1>Coding 101</h1>
+  </div>
+   <div>
+  <ul id="questions">
+    <li>What do you know about coding? Take this short quiz to find out!</li>
+    <li>For each wrong answer you will lose 10 of your 60 seconds.</li>
+    <li>Answer all 3 multiple choice questions before time runs out!</li>
+  </ul> -->

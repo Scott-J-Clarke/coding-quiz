@@ -23,6 +23,21 @@ main {
     justify-content: center;
 }
 
+#questions {
+    list-style-type: none;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+/* #questions:active {
+    background: mediumpurple;
+    border-radius: 8px;
+    font-size: 24px;
+    color: #ffff;
+    padding: 10px;
+} */
+
 .center-button {
     display: flex;
     justify-content: center;
@@ -50,13 +65,8 @@ section {
     padding: 8px;
 }
 
-.coding-quiz {
+#quiz-title {
     font-size: 2em;
-}
-
-.coding-quiz,
-p {
-    text-align: center;
 }
 
 /* @media screen and (max-width: 1183px) {
