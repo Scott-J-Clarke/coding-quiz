@@ -23,11 +23,18 @@ main {
     justify-content: center;
 }
 
-#questions {
-    list-style-type: none;
+.quiz-container {
     font-size: 1.5em;
     line-height: 1.5em;
     text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.answer {
+    
 }
 
 /* #questions:active {
