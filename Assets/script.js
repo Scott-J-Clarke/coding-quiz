@@ -23,6 +23,7 @@ var questions = [
         c: "1995",
         correct: "1995"
     }
+    // There should be an end game screen here. Players could see their score and enter their initials.
 ];
 
 // Variables that access HTML elements. They display questions and answers.
@@ -32,6 +33,7 @@ var questionElement = document.getElementById("question");
 var a_text = document.getElementById("a_text");
 var b_text = document.getElementById("b_text");
 var c_text = document.getElementById("c_text");
+var displayResult = document.getElementById("display-result");
 
 // Variables to track quiz question and score.
 var currentQuiz = 0;
@@ -45,7 +47,6 @@ var seconds = 60;
 // Trying to set up click on answers in multiple choice quiz.
 answerElements.onclick = function(event) {
     event.preventDefault();
-    console.log(event);
     getSelected()
 };
 
@@ -53,16 +54,67 @@ answerElements.onclick = function(event) {
 function getSelected(event) {
     var userSelect = event.target.innerHTML;
     if (userSelect === questions[currentQuiz].correct) {
-        console.log("CORRECT!")
+        // The comments on line 58 and 62 should show after the user makes their guess.
+        // When the comment displays it should have a gray line above it.
+        // The comment should disappear onclick before the next question. 
+        score++;
+        thatsCorrect();
     } else {
-        console.log("INCORRECT!")
-        seconds -= 10
+        seconds -= 10;
+        thatsIncorrect();
     }
-    if (currentQuiz < questions.length-1) {
+    if (currentQuiz < questions.length -1) {
         currentQuiz++
         loadQuiz();
-    }
+    } else {
+        quiz.innerHTML = `<h1>You answered ${score}/${questions.length} questions correctly.<h1>`;
+        enterInitials();
+    }   
 };
+
+function thatsCorrect() {
+    displayResult.textContent = "That's correct!";
+}
+
+function thatsIncorrect() {
+    displayResult.textContent = "That's incorrect!";
+}
+
+function enterInitials() {
+        
+// var enterInitials = <button onclick="enter-initials()">Enter your initials</button>
+        
+        let myDiv = document.getElementById("GFG");
+        // creating button element
+        let button = document.createElement('BUTTON');
+        // creating text to be
+        //displayed on button
+        let text = document.createTextNode("Button");
+         
+        // appending text to button
+        button.appendChild(text);
+        // appending button to div
+        myDiv.appendChild(button);;
+
+}
+
+// Counts down the time to answer all 3 multiple choice questions.
+function startCountDown() {
+    var interval = setInterval(() => {
+        secondsLabel.textContent = seconds;
+        seconds--;
+
+        if (seconds < 0) {
+            clearInterval(interval);
+            secondsLabel.textContent = "Expired!";
+        }
+    }, 1000);
+} 
+    
+// Removes "Start" button from screen after it is clicked on.
+function buttonDisappear() {
+    startButton.setAttribute("style", "display:none");
+}
 
 // Function that loads the quiz.
 function loadQuiz() {
@@ -83,27 +135,5 @@ startButton.addEventListener("click", function() {
     loadQuiz();
 });
 
-// This could be used for the end of game screen:
-    //   else {
-    //     quiz.innerHTML = `
-    //           <h2>You answered ${score}/${questions.length} questions correctly</h2>
-    //           <button onclick="history.go(0)">Play Again</button>
-    //       `
-    //   }
-   
-function startCountDown() {
-    
-    var interval = setInterval(() => {
-        secondsLabel.textContent = seconds;
-        seconds--;
 
-        if (seconds < 0) {
-            clearInterval(interval);
-            secondsLabel.textContent = "Expired!";
-        }
-    }, 1000);
-} 
-    
-function buttonDisappear() {
-    startButton.setAttribute("style", "display:none");
-}
+   
