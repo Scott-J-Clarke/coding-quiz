@@ -9,14 +9,13 @@
 </head>
 
 <body>
-
-  <header>
-    <div class="top-line">
-      <p><span class="view-highscores">View High Scores</span></p>
-      <p>Time: <span id="timer-count">60</span></p>
-    </div>
-  </header>
-
+  <div class="layout-container">
+    <header>
+      <h1>View High Scores</h1>
+      <h1 id="countdown"></h1>
+    </header> 
+  </div>
+  
   <main>
     <section>
       <div class="quiz-container" id="quiz">
@@ -37,13 +36,12 @@
         <button class="start-button">Start</button>
         <div id="display-result"></div>
       </div>
+      <div id ="highScores" class="highScores">
+        <div id="high-score-title"></div>
+    </div>
     </section>
   </main>
   <script src="Assets/script.js"></script>
 </body>
 
 </html>
-
-<!-- <div class="center-button"> </div> Is this styling for the button needed?-->
-
-<!-- <button id="submit">Submit</button> -->

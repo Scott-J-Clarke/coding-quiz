@@ -1,3 +1,22 @@
+// DOM elements
+var quiz = document.getElementById("quiz");
+var answerElements = document.querySelectorAll(".answer");
+var questionElement = document.getElementById("question");
+var a_text = document.getElementById("a_text");
+var b_text = document.getElementById("b_text");
+var c_text = document.getElementById("c_text");
+var correctEl = document.getElementById("display-result");
+var highScoreEl = document.querySelector('#highScores')
+
+// Track quiz question and score
+var currentQuiz = 0;
+var score = 0;
+
+// Timer variables
+var startButton = document.querySelector(".start-button");
+var countDownEl = document.getElementById("countdown");
+var seconds = 60;
+
 // Multiple choice questions and answers object.
 var questions = [
     { 
@@ -23,40 +42,12 @@ var questions = [
         c: "1995",
         correct: "1995"
     }
-    // There should be an end game screen here. Players could see their score and enter their initials.
 ];
 
-// Variables that access HTML elements. They display questions and answers.
-var quiz = document.getElementById("quiz");
-var answerElements = document.querySelectorAll(".answer");
-var questionElement = document.getElementById("question");
-var a_text = document.getElementById("a_text");
-var b_text = document.getElementById("b_text");
-var c_text = document.getElementById("c_text");
-var displayResult = document.getElementById("display-result");
-
-// Variables to track quiz question and score.
-var currentQuiz = 0;
-var score = 0;
-
-// Timer variables.
-var startButton = document.querySelector(".start-button");
-var secondsLabel = document.getElementById("timer-count");
-var seconds = 60;
-
-// Trying to set up click on answers in multiple choice quiz.
-answerElements.onclick = function(event) {
-    event.preventDefault();
-    getSelected()
-};
-
-// Function that checks if user answer is correct or incorrect.
+// Function to see if user answer is correct
 function getSelected(event) {
     var userSelect = event.target.innerHTML;
     if (userSelect === questions[currentQuiz].correct) {
-        // The comments on line 58 and 62 should show after the user makes their guess.
-        // When the comment displays it should have a gray line above it.
-        // The comment should disappear onclick before the next question. 
         score++;
         thatsCorrect();
     } else {
@@ -73,40 +64,79 @@ function getSelected(event) {
 };
 
 function thatsCorrect() {
-    displayResult.textContent = "That's correct!";
+    // There should be a gray line above this.
+    correctEl.innerHTML = "That's correct!";
 }
 
 function thatsIncorrect() {
-    displayResult.textContent = "That's incorrect!";
+    // There should be a gray line above this.
+    correctEl.innerHTML = "That's incorrect!";
 }
 
 function enterInitials() {
-        
-// var enterInitials = <button onclick="enter-initials()">Enter your initials</button>
-        
-        let myDiv = document.getElementById("GFG");
-        // creating button element
-        let button = document.createElement('BUTTON');
-        // creating text to be
-        //displayed on button
-        let text = document.createTextNode("Button");
-         
-        // appending text to button
-        button.appendChild(text);
-        // appending button to div
-        myDiv.appendChild(button);;
+    // Input for initials
+    initTextEl = document.createElement("input");
+    initTextEl.setAttribute("id", "initials-input");
+    initTextEl.setAttribute("type", "text");
+    initTextEl.setAttribute("name", "initials");
+    initTextEl.setAttribute("placeholder", "Enter initials here");
+    
+    quiz.appendChild(initTextEl);
 
+    // Create save button element
+    saveButtonEl = document.createElement("button");
+    saveButtonEl.setAttribute("id", "save-btn");
+    saveButtonEl.setAttribute("class", "save-btn");
+    saveButtonEl.setAttribute("type", "submit");
+    saveButtonEl.textContent = "Save score";
+
+    quiz.appendChild(saveButtonEl);
+
+    // What does this event listener do?
+    quiz.addEventListener("submit", viewHighScores);
 }
 
+// What does this function do?
+function viewHighScores(e) {
+    e.preventDefault();
+    var name = document.querySelector("#initials-input").textContent;
+    savedInit(name);
+
+    quiz.replaceWith(highScoreEl)
+    loadSaveScores();
+}
+
+// What does this variable do?
+var savedScore = function() {
+    localStorage.setItem("score", JSON.stringify(score));
+}
+
+// What does this variable do?
+var savedInit = function(initials) {
+    localStorage.setItem("initials", JSON.stringify(initials));
+}
+
+// What does this function do?
+function loadSaveScores() {
+    var savedScore = localStorage.getItem("score");
+    var savedInit = localStorage.getItem("initials");
+
+    savedScore = JSON.parse(savedScore);
+    savedInit = JSON.parse(savedInit);
+
+    document.getElementById("highscores").innerHTML = savedInit + "-" + savedScore;
+}
+        
 // Counts down the time to answer all 3 multiple choice questions.
 function startCountDown() {
     var interval = setInterval(() => {
-        secondsLabel.textContent = seconds;
+        countDownEl.textContent = seconds + " seconds left";
         seconds--;
 
         if (seconds < 0) {
             clearInterval(interval);
-            secondsLabel.textContent = "Expired!";
+            countDownEl.textContent = "Expired!";
+            gaveOver();
         }
     }, 1000);
 } 
@@ -128,12 +158,15 @@ function loadQuiz() {
     });
 }
   
+// Trying to set up click on answers in multiple choice quiz.
+answerElements.onclick = function(event) {
+    event.preventDefault();
+    getSelected()
+};
+
 // Event listener that starts the quiz.
 startButton.addEventListener("click", function() {
     startCountDown();
     buttonDisappear();
     loadQuiz();
 });
-
-
-   
